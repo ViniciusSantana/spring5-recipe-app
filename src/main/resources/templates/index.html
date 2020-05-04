@@ -31,11 +31,12 @@
                 <div class="card-body">
                     <div class="table-responsive" th:if="${not #lists.isEmpty(recipes)}">
                         <table class="table table-hover">
+                            <caption>Recipe List</caption>
                             <thead class="">
                             <tr>
-                                <th>ID</th>
-                                <th>Description</th>
-                                <th>View</th>
+                                <th scope="col">ID</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">View</th>
                             </tr>
                             </thead>
                             <tr th:remove="all">
