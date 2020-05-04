@@ -4,6 +4,7 @@ import guru.springframework.commands.RecipeCommand;
 import guru.springframework.converters.RecipeCommandToRecipe;
 import guru.springframework.converters.RecipeToRecipeCommand;
 import guru.springframework.domain.Recipe;
+import guru.springframework.exceptions.RecipeNotFoundException;
 import guru.springframework.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -40,7 +41,7 @@ public class RecipeServiceImpl implements RecipeService {
         var recipe = this.recipeRepository.findById(id);
 
         if (recipe.isEmpty()) {
-            throw new RuntimeException("Recipe Not Found");
+            throw new RecipeNotFoundException();
         }
 
         return recipe.get();
@@ -60,6 +61,6 @@ public class RecipeServiceImpl implements RecipeService {
     @Transactional
     public RecipeCommand findCommandById(Long id) {
         var recipe = recipeRepository.findById(id);
-        return recipeToRecipeCommand.convert(recipe.orElseGet(null));
+        return recipeToRecipeCommand.convert(recipe.orElse(null));
     }
 }

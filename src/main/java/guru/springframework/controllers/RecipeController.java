@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class RecipeController {
 
+    public static final String RECIPE_ATTRIBUTE = "recipe";
     final RecipeService recipeService;
 
     public RecipeController(RecipeService recipeService) {
@@ -20,19 +21,19 @@ public class RecipeController {
 
     @GetMapping("/recipe/{id}/show")
     public String showById(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("recipe", recipeService.findById(id));
+        model.addAttribute(RECIPE_ATTRIBUTE, recipeService.findById(id));
         return "recipe/show";
     }
 
     @GetMapping("/recipe/new")
     public String newRecipe(Model model) {
-        model.addAttribute("recipe", new RecipeCommand());
+        model.addAttribute(RECIPE_ATTRIBUTE, new RecipeCommand());
         return "recipe/recipeform";
     }
 
     @GetMapping("/recipe/{id}/update")
     public String updateRecipe(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("recipe", recipeService.findCommandById(id));
+        model.addAttribute(RECIPE_ATTRIBUTE, recipeService.findCommandById(id));
         return "recipe/recipeform";
     }
 
