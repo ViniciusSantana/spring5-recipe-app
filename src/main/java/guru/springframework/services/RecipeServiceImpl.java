@@ -24,4 +24,15 @@ public class RecipeServiceImpl implements RecipeService {
         log.debug("getting all recipes");
         return StreamSupport.stream(recipeRepository.findAll().spliterator(), false).collect(Collectors.toSet());
     }
+
+    @Override
+    public Recipe findById(Long id) {
+        var recipe = this.recipeRepository.findById(id);
+
+        if (recipe.isEmpty()) {
+            throw new RuntimeException("Recipe Not Found");
+        }
+
+        return recipe.get();
+    }
 }
